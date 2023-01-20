@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class main {
 
@@ -15,18 +16,24 @@ public class main {
     }
 
 
-    void glubina(int v, boolean visited[]) {
+    void shirina(int v, boolean visited[]) {
+        LinkedList<Integer> queue = new LinkedList<>();
         visited[v] = true;
-        System.out.println(v + " ");
-        for (int n : graph[v]) {
-            if (!visited[n])
-                glubina(n, visited);
+        queue.add(v);
+        while (!queue.isEmpty()) {
+            v = queue.poll();
+            System.out.println(v + " ");
+            for (int n : graph[v]) {
+                if (!visited[n]) {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
         }
-
     }
 
-    void glubina(int v) {
-        glubina(v, new boolean[V]);
+    void shirina(int v) {
+        shirina(v, new boolean[V]);
     }
 
     public static void main(String[] args) {
@@ -43,7 +50,7 @@ public class main {
         graph.addConnection(5, 6);
         graph.addConnection(6, 5);
 
-        graph.glubina(0); // откуда стартмуем
+        graph.shirina(0); // откуда стартмуем
     }
 
     void addConnection(int v, int w) {
